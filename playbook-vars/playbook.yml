@@ -1,0 +1,22 @@
+---
+- hosts: localhost
+  gather_facts: false
+  connection: local
+  vars:
+    dict:
+      key1: value
+      key2: value
+  tasks:
+    - debug:
+        var: dict
+
+    - name: Update dict
+      set_fact:
+        dict: "{{
+          dict | combine({
+            'key2': 'changed_value',
+            'key3': 'changed_value'
+        }) }}"
+
+    - debug:
+        var: dict
